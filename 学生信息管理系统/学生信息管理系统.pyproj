@@ -32,6 +32,9 @@
     <Compile Include="Gui\loginGui.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Gui\registerGui.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Gui\__init__.py">
       <SubType>Code</SubType>
     </Compile>
