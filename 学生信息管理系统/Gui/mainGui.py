@@ -1,4 +1,5 @@
 ﻿from PyQt5.Qt import *
+from Gui.helpGui import HelpGui
 
 
 class MainGui(QWidget):
@@ -67,18 +68,22 @@ class MainGui(QWidget):
 
         enterAction = QAction(menu)
         enterAction.setText("导入")
+        enterAction.triggered.connect(self.enterActionTriggered)
         menu.addAction(enterAction)
 
         delAction = QAction(menu)
         delAction.setText("删除")
+        delAction.triggered.connect(self.delActionTriggered)
         menu.addAction(delAction)
 
         quitAction = QAction(menu)
         quitAction.setText("退出")
+        quitAction.triggered.connect(self.close)
         menu.addAction(quitAction)
 
         helpAction = QAction(menuBar)
         helpAction.setText("帮助")
+        helpAction.triggered.connect(self.helpActionTriggered)
         menuBar.addAction(helpAction)
 
         layout = QGridLayout(self)
@@ -92,4 +97,17 @@ class MainGui(QWidget):
         layout.setMenuBar(menuBar)
 
     def queryButtonClicked(self):
+        if self.nameLineEdit.text() == "" and self.numLineEdit.text() == "":
+            print("学生姓名和学号不可都为空！")
+        else:
+            self.querySignal.emit(self.nameLineEdit.text() + ' ' + self.numLineEdit.text())
+
+    def enterActionTriggered(self):
         pass
+
+    def delActionTriggered(self):
+        pass
+
+    def helpActionTriggered(self):
+        helpGui = HelpGui()
+        helpGui.exec()

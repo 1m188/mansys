@@ -25,7 +25,7 @@ class Data(QObject):
             cl.registerSignal.connect(self.registerSlot)
             self.loginSignal.connect(cl.accept)
         elif type(cl) == MainGui:
-            pass
+            cl.querySignal.connect(self.querySlot)
 
     def loginSlot(self,acountInfo):
         self.cursor.execute("select * from acount where username=%s" % acountInfo.split(' ')[0])
@@ -47,3 +47,6 @@ class Data(QObject):
             self.cursor.execute("insert into acount values(%s,%s)" % (acountInfo.split(' ')[0],acountInfo.split(' ')[1]))
             self.connection.commit()
             print("注册成功！")
+
+    def querySlot(self,stuInfo):
+        pass
