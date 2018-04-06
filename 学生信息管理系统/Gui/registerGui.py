@@ -2,6 +2,8 @@
 
 
 class RegisterGui(QDialog):
+    registerSignal = pyqtSignal(str)
+
     def __init__(self):
         super().__init__()
 
@@ -42,6 +44,7 @@ class RegisterGui(QDialog):
         self.nameLineEdit.move(self.width() / 2 + 30,nameLabel.y())
 
         self.passwordLineEdit = QLineEdit(self)
+        self.passwordLineEdit.setEchoMode(QLineEdit.Password)
         self.passwordLineEdit.resize(self.passwordLineEdit.sizeHint())
         self.passwordLineEdit.move(self.nameLineEdit.x(),passwordLabel.y())
 
@@ -55,4 +58,4 @@ class RegisterGui(QDialog):
         if self.nameLineEdit.text() == "" or self.passwordLineEdit.text() == "":
             QMessageBox.warning(self,"警告","用户名或密码不可为空！")
         else:
-            pass
+            self.registerSignal.emit(self.nameLineEdit.text() + ' ' + self.passwordLineEdit.text())

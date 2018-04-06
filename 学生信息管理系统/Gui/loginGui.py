@@ -4,6 +4,7 @@ from Gui.registerGui import RegisterGui
 
 class LoginGui(QDialog):
     loginSignal = pyqtSignal(str)
+    registerSignal = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -43,6 +44,7 @@ class LoginGui(QDialog):
         self.nameLineEdit.move(self.width() / 2 + 30,nameLabel.y())
 
         self.passwordLineEdit = QLineEdit(self)
+        self.passwordLineEdit.setEchoMode(QLineEdit.Password)
         self.passwordLineEdit.resize(self.passwordLineEdit.sizeHint())
         self.passwordLineEdit.move(self.nameLineEdit.x(),passwordLabel.y())
 
@@ -72,4 +74,5 @@ class LoginGui(QDialog):
 
     def registerButtonClicked(self):
         registerGui = RegisterGui()
+        registerGui.registerSignal.connect(self.registerSignal)
         registerGui.exec()
