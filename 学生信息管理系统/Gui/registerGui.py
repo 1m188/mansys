@@ -49,6 +49,7 @@ class RegisterGui(QDialog):
         self.passwordLineEdit.move(self.nameLineEdit.x(),passwordLabel.y())
 
         registerButton = QPushButton(self)
+        registerButton.setDefault(True)
         registerButton.setText("注册")
         registerButton.resize(registerButton.sizeHint())
         registerButton.move(self.width() - registerButton.width() - 10,self.height() - registerButton.height() - 10)

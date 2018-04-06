@@ -55,6 +55,7 @@ class LoginGui(QDialog):
         quitButton.clicked.connect(self.close)
 
         loginButton = QPushButton(self)
+        loginButton.setDefault(True)
         loginButton.setText("登录")
         loginButton.resize(loginButton.sizeHint())
         loginButton.move(quitButton.x() - loginButton.width() - 10,quitButton.y())
