@@ -38,7 +38,19 @@ class MainGui(QWidget):
 
         self.numLineEdit = QLineEdit(self)
 
-        self.stuInfoList = QListWidget(self)
+        self.stuInfoList = QTableWidget(self)
+        #选中项目编辑动作为不编辑
+        self.stuInfoList.setEditTriggers(self.stuInfoList.NoEditTriggers)
+        #取消掉每次新增条目的序号id显示
+        self.stuInfoList.verticalHeader().setHidden(True)
+        self.stuInfoList.setColumnCount(4)
+        self.stuInfoList.setHorizontalHeaderLabels(["姓名","年龄","学号","专业"])
+        #选中条目的动作为选中那一行
+        self.stuInfoList.setSelectionBehavior(QAbstractItemView.SelectRows)
+        #将每个条目扩展到充满容器
+        self.stuInfoList.horizontalHeader().setStretchLastSection(True)
+        #将容器宽度平均分给所有条目
+        self.stuInfoList.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         queryButton = QPushButton(self)
         queryButton.setText("查询")
