@@ -1,17 +1,17 @@
 ﻿from PyQt5.Qt import *
+from Gui.registerGui import RegisterGui
 
 
-class LoginGui(QWidget):
+class LoginGui(QDialog):
     loginSignal = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
 
-        self.setWindowFlags(Qt.WindowCloseButtonHint)
-
         self.initUI()
 
     def initUI(self):
+        self.setWindowFlags(Qt.WindowCloseButtonHint)
         self.setWindowTitle("登录")
         self.setFixedSize(600,300)
 
@@ -39,12 +39,12 @@ class LoginGui(QWidget):
         passwordLabel.move(nameLabel.x(),nameLabel.y() + nameLabel.height() + 50)
 
         self.nameLineEdit = QLineEdit(self)
-        self.nameLineEdit.resize(nameLineEdit.sizeHint())
+        self.nameLineEdit.resize(self.nameLineEdit.sizeHint())
         self.nameLineEdit.move(self.width() / 2 + 30,nameLabel.y())
 
         self.passwordLineEdit = QLineEdit(self)
-        self.passwordLineEdit.resize(passwordLineEdit.sizeHint())
-        self.passwordLineEdit.move(nameLineEdit.x(),passwordLabel.y())
+        self.passwordLineEdit.resize(self.passwordLineEdit.sizeHint())
+        self.passwordLineEdit.move(self.nameLineEdit.x(),passwordLabel.y())
 
         quitButton = QPushButton(self)
         quitButton.setText("退出")
@@ -71,4 +71,5 @@ class LoginGui(QWidget):
             self.loginSignal.emit(self.nameLineEdit.text() + ' ' + self.passwordLineEdit.text())
 
     def registerButtonClicked(self):
-        pass
+        registerGui = RegisterGui()
+        registerGui.exec()
