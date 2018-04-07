@@ -1,5 +1,7 @@
 ﻿from PyQt5.Qt import *
 from Gui.helpGui import HelpGui
+from Gui.enterGui import EnterGui
+from Gui.delGui import DelGui
 
 
 class MainGui(QWidget):
@@ -7,6 +9,9 @@ class MainGui(QWidget):
 
     def __init__(self):
         super().__init__()
+
+        self.isEnterGuiOpen = False
+        self.isDelGuiOpen = False
 
         self.setAttribute(Qt.WA_QuitOnClose,True)
 
@@ -103,10 +108,26 @@ class MainGui(QWidget):
             self.querySignal.emit(self.nameLineEdit.text() + ' ' + self.numLineEdit.text())
 
     def enterActionTriggered(self):
-        pass
+        if not self.isEnterGuiOpen:
+            self.enterGui = EnterGui()
+            self.enterGui.closeSignal.connect(self.enterGuiCloseSlot)
+            self.isEnterGuiOpen = True
+            self.enterGui.show()
+
+    def enterGuiCloseSlot(self):
+        self.isEnterGuiOpen = False
+        del self.enterGui
 
     def delActionTriggered(self):
-        pass
+        if not self.isDelGuiOpen:
+            self.delGui = DelGui()
+            self.delGui.closeSignal.connect(self.delGuiCloseSlot)
+            self.isDelGuiOpen = True
+            self.delGui.show()
+
+    def delGuiCloseSlot(self):
+        self.isDelGuiOpen = False
+        del self.delGui
 
     def helpActionTriggered(self):
         helpGui = HelpGui()
