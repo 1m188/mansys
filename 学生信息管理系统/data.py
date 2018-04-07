@@ -6,6 +6,7 @@ from Gui.mainGui import MainGui
 
 class Data(QObject):
     loginSignal = pyqtSignal()
+    queryResultSignal = pyqtSignal(list)
 
     def __init__(self):
         super().__init__()
@@ -26,9 +27,10 @@ class Data(QObject):
             self.loginSignal.connect(cl.accept)
         elif type(cl) == MainGui:
             cl.querySignal.connect(self.querySlot)
+            self.queryResultSignal.connect(cl.queryResultSlot)
 
     def loginSlot(self,acountInfo):
-        self.cursor.execute("select * from acount where username=%s" % acountInfo.split(' ')[0])
+        self.cursor.execute("select * from acount where username='%s'" % acountInfo.split(' ')[0])
         result = self.cursor.fetchone()
         if result:
             if result["password"] == acountInfo.split(' ')[1]:
@@ -39,14 +41,21 @@ class Data(QObject):
             print("没有此用户！")
 
     def registerSlot(self,acountInfo):
-        self.cursor.execute("select * from acount where username=%s" % acountInfo.split(' ')[0])
+        self.cursor.execute("select * from acount where username='%s'" % acountInfo.split(' ')[0])
         result = self.cursor.fetchone()
         if result:
             print("该用户已存在！")
         else:
-            self.cursor.execute("insert into acount values(%s,%s)" % (acountInfo.split(' ')[0],acountInfo.split(' ')[1]))
+            self.cursor.execute("insert into acount values('%s','%s')" % (acountInfo.split(' ')[0],acountInfo.split(' ')[1]))
             self.connection.commit()
             print("注册成功！")
 
     def querySlot(self,stuInfo):
-        pass
+        if stuInfo.split(' ')[0] == "" and stuInfo.split(' ')[1] == "":
+            self.cursor.execute("select * from stuinfo")
+        elif stuInfo.split(' ')[0] != "" and stuInfo.split(' ')[1] != "":
+            self.cursor.execute("select * from stuinfo where name='%s' and num='%s'" % (stuInfo.split(' ')[0],stuInfo.split(' ')[1]))
+        else:
+            self.cursor.execute("select * from stuinfo where name='%s' or num='%s'" % (stuInfo.split(' ')[0],stuInfo.split(' ')[1]))
+        result = self.cursor.fetchall()
+        self.queryResultSignal.emit(list(result))

@@ -102,11 +102,18 @@ class MainGui(QWidget):
         layout.setMenuBar(menuBar)
 
     def queryButtonClicked(self):
-        if self.nameLineEdit.text() == "" and self.numLineEdit.text() == "":
-            print("学生姓名和学号不可都为空！")
-        else:
-            self.querySignal.emit(self.nameLineEdit.text() + ' ' + self.numLineEdit.text())
+        self.querySignal.emit(self.nameLineEdit.text() + ' ' + self.numLineEdit.text())
 
+    #返回来的查询结果显示到界面上
+    def queryResultSlot(self,result):
+        self.stuInfoList.setRowCount(len(result))
+        for i in range(len(result)):
+            self.stuInfoList.setItem(i,0,QTableWidgetItem(str(result[i]["name"])))
+            self.stuInfoList.setItem(i,1,QTableWidgetItem(str(result[i]["age"])))
+            self.stuInfoList.setItem(i,2,QTableWidgetItem(str(result[i]["num"])))
+            self.stuInfoList.setItem(i,3,QTableWidgetItem(str(result[i]["profession"])))
+
+    #导入信息界面
     def enterActionTriggered(self):
         if not self.isEnterGuiOpen:
             self.enterGui = EnterGui()
@@ -118,6 +125,7 @@ class MainGui(QWidget):
         self.isEnterGuiOpen = False
         del self.enterGui
 
+    #删除信息界面
     def delActionTriggered(self):
         if not self.isDelGuiOpen:
             self.delGui = DelGui()
@@ -129,6 +137,7 @@ class MainGui(QWidget):
         self.isDelGuiOpen = False
         del self.delGui
 
+    #帮助界面
     def helpActionTriggered(self):
         helpGui = HelpGui()
         helpGui.exec()
