@@ -6,6 +6,8 @@ from Gui.delGui import DelGui
 
 class MainGui(QWidget):
     querySignal = pyqtSignal(str)
+    enterSignal = pyqtSignal(str)
+    delSignal = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -117,6 +119,7 @@ class MainGui(QWidget):
     def enterActionTriggered(self):
         if not self.isEnterGuiOpen:
             self.enterGui = EnterGui()
+            self.enterGui.enterSignal.connect(self.enterSignal)
             self.enterGui.closeSignal.connect(self.enterGuiCloseSlot)
             self.isEnterGuiOpen = True
             self.enterGui.show()
@@ -129,6 +132,7 @@ class MainGui(QWidget):
     def delActionTriggered(self):
         if not self.isDelGuiOpen:
             self.delGui = DelGui()
+            self.delGui.delSignal.connect(self.delSignal)
             self.delGui.closeSignal.connect(self.delGuiCloseSlot)
             self.isDelGuiOpen = True
             self.delGui.show()

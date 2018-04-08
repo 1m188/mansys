@@ -20,6 +20,7 @@ class Data(QObject):
         self.connection = connect(host="localhost",port=3306,user="root",password="123456",db="stuinfosystem",charset="utf8",cursorclass=cursors.DictCursor)
         self.cursor = self.connection.cursor()
 
+    #添加与各个界面的信号交互
     def addClass(self,cl):
         if type(cl) == LoginGui:
             cl.loginSignal.connect(self.loginSlot)
@@ -28,7 +29,10 @@ class Data(QObject):
         elif type(cl) == MainGui:
             cl.querySignal.connect(self.querySlot)
             self.queryResultSignal.connect(cl.queryResultSlot)
+            cl.enterSignal.connect(self.enterSlot)
+            cl.delSignal.connect(self.delSlot)
 
+    #登陆信号槽
     def loginSlot(self,acountInfo):
         self.cursor.execute("select * from acount where username='%s'" % acountInfo.split(' ')[0])
         result = self.cursor.fetchone()
@@ -40,6 +44,7 @@ class Data(QObject):
         else:
             print("没有此用户！")
 
+    #注册信号槽
     def registerSlot(self,acountInfo):
         self.cursor.execute("select * from acount where username='%s'" % acountInfo.split(' ')[0])
         result = self.cursor.fetchone()
@@ -50,6 +55,7 @@ class Data(QObject):
             self.connection.commit()
             print("注册成功！")
 
+    #查询信号槽
     def querySlot(self,stuInfo):
         if stuInfo.split(' ')[0] == "" and stuInfo.split(' ')[1] == "":
             self.cursor.execute("select * from stuinfo")
@@ -59,3 +65,25 @@ class Data(QObject):
             self.cursor.execute("select * from stuinfo where name='%s' or num='%s'" % (stuInfo.split(' ')[0],stuInfo.split(' ')[1]))
         result = self.cursor.fetchall()
         self.queryResultSignal.emit(list(result))
+
+    #导入信息信号槽
+    def enterSlot(self,stuInfo):
+        stuInfoList = stuInfo.split(' ')
+        self.cursor.execute("select * from stuinfo where name='%s' and age='%s' and num='%s' and profession='%s'" % (stuInfoList[0],stuInfoList[1],stuInfoList[2],stuInfoList[3]))
+        result = list(self.cursor.fetchall())
+        if len(result) > 0:
+            pass
+        else:
+            self.cursor.execute("insert into stuinfo values('%s','%s','%s','%s')" % (stuInfoList[0],stuInfoList[1],stuInfoList[2],stuInfoList[3]))
+            self.connection.commit()
+
+    #删除信息信号槽
+    def delSlot(self,stuInfo):
+        stuInfoList = stuInfo.split(' ')
+        self.cursor.execute("select * from stuinfo where name='%s' and age='%s' and num='%s' and profession='%s'" % (stuInfoList[0],stuInfoList[1],stuInfoList[2],stuInfoList[3]))
+        result = list(self.cursor.fetchall())
+        if len(result) > 0:
+            self.cursor.execute("delete from stuinfo where name='%s' and age='%s' and num='%s' and profession='%s'" % (stuInfoList[0],stuInfoList[1],stuInfoList[2],stuInfoList[3]))
+            self.connection.commit()
+        else:
+            pass

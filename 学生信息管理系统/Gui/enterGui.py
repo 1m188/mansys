@@ -71,7 +71,10 @@ class EnterGui(QWidget):
         layout.addWidget(enterButton,4,11,1,1)
 
     def enterButtonClicked(self):
-        pass
+        if self.nameLineEdit.text() == "" or self.ageLineEdit.text() == "" or self.numLineEdit.text() == "" or self.professLineEdit.text() == "":
+            print("学生信息不可为空！")
+        else:
+            self.enterSignal.emit(self.nameLineEdit.text() + ' ' + self.ageLineEdit.text() + ' ' + self.numLineEdit.text() + ' ' + self.professLineEdit.text())
 
     def closeEvent(self, QCloseEvent):
         self.closeSignal.emit()
