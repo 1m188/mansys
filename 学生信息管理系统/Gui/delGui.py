@@ -1,7 +1,8 @@
 ﻿from PyQt5.Qt import *
+from Gui.baseGui import BaseGui
 
 
-class DelGui(QWidget):
+class DelGui(QWidget,BaseGui):
     delSignal = pyqtSignal(str)
     closeSignal = pyqtSignal()
 

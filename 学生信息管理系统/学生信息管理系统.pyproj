@@ -29,6 +29,9 @@
     <Compile Include="data.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Gui\baseGui.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Gui\delGui.py">
       <SubType>Code</SubType>
     </Compile>

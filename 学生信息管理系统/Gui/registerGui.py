@@ -1,7 +1,8 @@
 ﻿from PyQt5.Qt import *
+from Gui.baseGui import BaseGui
 
 
-class RegisterGui(QDialog):
+class RegisterGui(QDialog,BaseGui):
     registerSignal = pyqtSignal(str)
 
     def __init__(self):

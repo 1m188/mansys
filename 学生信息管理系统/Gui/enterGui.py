@@ -1,7 +1,8 @@
 ﻿from PyQt5.Qt import *
+from Gui.baseGui import BaseGui
 
 
-class EnterGui(QWidget):
+class EnterGui(QWidget,BaseGui):
     enterSignal = pyqtSignal(str)
     closeSignal = pyqtSignal()
 
@@ -49,6 +50,8 @@ class EnterGui(QWidget):
         self.nameLineEdit = QLineEdit(self)
 
         self.ageLineEdit = QLineEdit(self)
+        #正则表达式控制这里只能够输入数字
+        self.ageLineEdit.setValidator(QRegExpValidator(QRegExp("[0-9]+$"),self.ageLineEdit))
 
         self.numLineEdit = QLineEdit(self)
 

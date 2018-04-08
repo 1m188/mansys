@@ -1,8 +1,9 @@
 ﻿from PyQt5.Qt import *
 from Gui.registerGui import RegisterGui
+from Gui.baseGui import BaseGui
 
 
-class LoginGui(QDialog):
+class LoginGui(QDialog,BaseGui):
     loginSignal = pyqtSignal(str)
     registerSignal = pyqtSignal(str)
 
@@ -76,4 +77,5 @@ class LoginGui(QDialog):
     def registerButtonClicked(self):
         registerGui = RegisterGui()
         registerGui.registerSignal.connect(self.registerSignal)
+        self.msgSignal.connect(registerGui.msgSlot)
         registerGui.exec()

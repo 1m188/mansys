@@ -2,9 +2,10 @@
 from Gui.helpGui import HelpGui
 from Gui.enterGui import EnterGui
 from Gui.delGui import DelGui
+from Gui.baseGui import BaseGui
 
 
-class MainGui(QWidget):
+class MainGui(QWidget,BaseGui):
     querySignal = pyqtSignal(str)
     enterSignal = pyqtSignal(str)
     delSignal = pyqtSignal(str)
@@ -121,6 +122,7 @@ class MainGui(QWidget):
             self.enterGui = EnterGui()
             self.enterGui.enterSignal.connect(self.enterSignal)
             self.enterGui.closeSignal.connect(self.enterGuiCloseSlot)
+            self.msgSignal.connect(self.enterGui.msgSlot)
             self.isEnterGuiOpen = True
             self.enterGui.show()
 
@@ -134,6 +136,7 @@ class MainGui(QWidget):
             self.delGui = DelGui()
             self.delGui.delSignal.connect(self.delSignal)
             self.delGui.closeSignal.connect(self.delGuiCloseSlot)
+            self.msgSignal.connect(self.delGui.msgSlot)
             self.isDelGuiOpen = True
             self.delGui.show()
 
