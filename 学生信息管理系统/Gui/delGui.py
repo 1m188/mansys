@@ -1,4 +1,8 @@
-﻿from PyQt5.Qt import *
+﻿'''
+用来删除学生信息的界面
+'''
+
+from PyQt5.Qt import *
 from Gui.baseGui import BaseGui
 
 

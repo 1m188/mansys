@@ -1,4 +1,8 @@
-﻿from PyQt5.Qt import *
+﻿'''
+一个用来导入学生信息的界面
+'''
+
+from PyQt5.Qt import *
 from Gui.baseGui import BaseGui
 
 

@@ -1,4 +1,8 @@
-﻿from PyQt5.Qt import *
+﻿'''
+一个帮助界面
+'''
+
+from PyQt5.Qt import *
 
 
 class HelpGui(QDialog):

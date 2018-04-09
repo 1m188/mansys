@@ -1,4 +1,8 @@
-﻿from PyQt5.Qt import *
+﻿'''
+整个应用的主界面
+'''
+
+from PyQt5.Qt import *
 from Gui.helpGui import HelpGui
 from Gui.enterGui import EnterGui
 from Gui.delGui import DelGui

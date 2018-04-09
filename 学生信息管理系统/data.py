@@ -1,4 +1,8 @@
-﻿from PyQt5.Qt import *
+﻿'''
+后台数据处理类，所有可能需要耗时且和界面无关的请求将以信号的形式发到这里进行处理，完毕之后如果需要反馈再反馈
+'''
+
+from PyQt5.Qt import *
 from pymysql import *
 from Gui.loginGui import LoginGui
 from Gui.registerGui import RegisterGui

@@ -1,4 +1,8 @@
-﻿from PyQt5.Qt import *
+﻿'''
+一个基本的界面类，包含了消息信号和消息信号槽，这样其他的界面只需继承这个类即可获得相应的信号和信号槽
+'''
+
+from PyQt5.Qt import *
 from msg import Msg
 
 

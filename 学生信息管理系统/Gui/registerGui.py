@@ -1,4 +1,8 @@
-﻿from PyQt5.Qt import *
+﻿'''
+如果没有用户，可以通过这个注册界面进行注册
+'''
+
+from PyQt5.Qt import *
 from Gui.baseGui import BaseGui
 
 

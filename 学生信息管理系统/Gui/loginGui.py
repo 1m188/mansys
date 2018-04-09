@@ -1,4 +1,8 @@
-﻿from PyQt5.Qt import *
+﻿'''
+最开始的登陆用户的界面
+'''
+
+from PyQt5.Qt import *
 from Gui.registerGui import RegisterGui
 from Gui.baseGui import BaseGui
 
