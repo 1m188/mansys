@@ -2,29 +2,36 @@
 如果没有用户，可以通过这个注册界面进行注册
 '''
 
-from PyQt5.Qt import *
+from PyQt5.QtWidgets import QDialog,QApplication,QLabel,QLineEdit,QPushButton,QMessageBox
+from PyQt5.QtCore import pyqtSignal,Qt
+from PyQt5.QtGui import QFont
 from Gui.baseGui import BaseGui
 
 
 class RegisterGui(QDialog,BaseGui):
-    registerSignal = pyqtSignal(str)
+    registerSignal = pyqtSignal(str) #注册请求
 
     def __init__(self):
         super().__init__()
 
-        self.setAttribute(Qt.WA_DeleteOnClose)
-
-        self.initUI()
-
-    def initUI(self):
+        #界面基本设置
+        self.setAttribute(Qt.WA_DeleteOnClose,True)
+        self.setAttribute(Qt.WA_QuitOnClose,False)
         self.setWindowFlags(Qt.WindowCloseButtonHint)
+
+        #界面标题和大小
         self.setWindowTitle("注册")
         self.setFixedSize(600,300)
         
+        #移动到屏幕中央
         rect = self.frameGeometry()
         rect.moveCenter(QApplication.desktop().availableGeometry().center())
         self.move(rect.topLeft())
 
+        self.initUI() #UI设置
+
+    def initUI(self):
+        #控件+布局
         infoLabel = QLabel(self)
         infoLabel.setAlignment(Qt.AlignCenter)
         infoLabel.setFont(QFont("微软雅黑",12))
@@ -60,6 +67,7 @@ class RegisterGui(QDialog,BaseGui):
         registerButton.move(self.width() - registerButton.width() - 10,self.height() - registerButton.height() - 10)
         registerButton.clicked.connect(self.registerButtonClicked)
 
+    #单击注册按钮
     def registerButtonClicked(self):
         if self.nameLineEdit.text() == "" or self.passwordLineEdit.text() == "":
             QMessageBox.warning(self,"警告","用户名或密码不可为空！")
