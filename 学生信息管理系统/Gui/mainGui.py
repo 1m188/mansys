@@ -2,7 +2,9 @@
 整个应用的主界面
 '''
 
-from PyQt5.Qt import *
+from PyQt5.QtWidgets import QWidget,QLabel,QLineEdit,QTableWidget,QTableWidgetItem,QAbstractItemView,QHeaderView,QPushButton,QMenuBar,QMenu,QAction,QGridLayout,QApplication
+from PyQt5.QtCore import pyqtSignal,Qt
+from PyQt5.QtGui import QFont
 from Gui.helpGui import HelpGui
 from Gui.enterGui import EnterGui
 from Gui.delGui import DelGui
@@ -10,28 +12,33 @@ from Gui.baseGui import BaseGui
 
 
 class MainGui(QWidget,BaseGui):
-    querySignal = pyqtSignal(str)
-    enterSignal = pyqtSignal(str)
-    delSignal = pyqtSignal(str)
+    querySignal = pyqtSignal(str) #查询请求
+    enterSignal = pyqtSignal(str) #导入请求
+    delSignal = pyqtSignal(str) #删除请求
 
     def __init__(self):
         super().__init__()
 
-        self.isEnterGuiOpen = False
-        self.isDelGuiOpen = False
+        self.isEnterGuiOpen = False #导入界面是否打开
+        self.isDelGuiOpen = False #删除界面是否打开
 
+        #界面基本设置
         self.setAttribute(Qt.WA_QuitOnClose,True)
+        self.setAttribute(Qt.WA_DeleteOnClose,True)
 
-        self.initUI()
-
-    def initUI(self):
+        #设置标题和大小
         self.setWindowTitle("学生信息管理系统")
         self.resize(900,600)
 
+        #移动到屏幕中央
         rect = self.frameGeometry()
         rect.moveCenter(QApplication.desktop().availableGeometry().center())
         self.move(rect.topLeft())
 
+        self.initUI() #UI设置
+
+    def initUI(self):
+        #控件
         infoLabel = QLabel(self)
         infoLabel.setAlignment(Qt.AlignCenter)
         infoLabel.setFont(QFont("微软雅黑",20))
@@ -98,6 +105,7 @@ class MainGui(QWidget,BaseGui):
         helpAction.triggered.connect(self.helpActionTriggered)
         menuBar.addAction(helpAction)
 
+        #布局
         layout = QGridLayout(self)
         layout.addWidget(infoLabel,0,0,1,10)
         layout.addWidget(nameLabel,1,0,1,6)
@@ -108,6 +116,7 @@ class MainGui(QWidget,BaseGui):
         layout.addWidget(queryButton,8,9,1,1)
         layout.setMenuBar(menuBar)
 
+    #单击查询按钮
     def queryButtonClicked(self):
         self.querySignal.emit(self.nameLineEdit.text() + ' ' + self.numLineEdit.text())
 
@@ -130,6 +139,7 @@ class MainGui(QWidget,BaseGui):
             self.isEnterGuiOpen = True
             self.enterGui.show()
 
+    #导入界面关闭
     def enterGuiCloseSlot(self):
         self.isEnterGuiOpen = False
         del self.enterGui
@@ -144,6 +154,7 @@ class MainGui(QWidget,BaseGui):
             self.isDelGuiOpen = True
             self.delGui.show()
 
+    #删除界面关闭
     def delGuiCloseSlot(self):
         self.isDelGuiOpen = False
         del self.delGui
