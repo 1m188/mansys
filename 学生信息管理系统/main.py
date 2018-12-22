@@ -8,6 +8,7 @@ from data import Data
 from Gui.loginGui import LoginGui
 from Gui.mainGui import MainGui
 
+QApplication.addLibraryPath(r"env\Lib\site-packages\PyQt5\Qt\plugins")
 
 app = QApplication(sys.argv)
 
