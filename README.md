@@ -1,4 +1,4 @@
-# StudentsInformationSystem_PyQt
+# StudentsInformationSystem
 一个用pyqt5写的学生信息管理系统，能够访问本地MySQL数据库
 1. 使用 vs2015（后使用vs2017），python 3.6.2 32bit，pymysql 0.8.0，pyqt5 5.11.2，MySQL Server version: 5.7.19-log MySQL Community Server (GPL) 开发。
 2. 由于连接的是本地的MySQL数据库，所以如果要修改连接数据库的方式以及某些参数的话，需要在data.py的init函数中进行修改。
