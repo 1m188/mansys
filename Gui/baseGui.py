@@ -8,12 +8,12 @@ from msg import Msg
 
 
 class BaseGui:
-    msgSignal = pyqtSignal(Msg) #消息通知信号
+    msgSignal = pyqtSignal(Msg)  # 消息通知信号
 
-    #接收到消息通知信号槽
-    def msgSlot(self,msg):
-        if msg.aim == type(self): #如果消息的目标是自己的类型
-            QMessageBox.about(self,msg.title,msg.msg) #则通知
+    # 接收到消息通知信号槽
+    def msgSlot(self, msg):
+        if msg.aim == type(self):  # 如果消息的目标是自己的类型
+            QMessageBox.about(self, msg.title, msg.msg)  # 则通知
         else:
-            #否则继续发送（如果和其他的界面有联系的话）
+            # 否则继续发送（如果和其他的界面有联系的话）
             self.msgSignal.emit(msg)
