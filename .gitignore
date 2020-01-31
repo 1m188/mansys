@@ -3,6 +3,8 @@
 
 # 忽略StuInfo_PyQt5的虚拟环境
 /StuInfo_PyQt5/env/
-
 # 忽略StuInfo_PyQt5的.pyc文件
 /StuInfo_PyQt5/*.pyc
+
+# 忽略StuInfo_C的生成文件
+/StuInfo_C/build/
