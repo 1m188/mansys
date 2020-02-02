@@ -2,9 +2,12 @@
 /.vscode/
 
 # 忽略StuInfo_PyQt5的虚拟环境
-/StuInfo_PyQt5/env/
+/stuinfo_pyqt5/env/
 # 忽略StuInfo_PyQt5的.pyc文件
-/StuInfo_PyQt5/*.pyc
+/stuinfo_pyqt5/*.pyc
 
 # 忽略StuInfo_C的生成文件
-/StuInfo_C/build/
+/stuinfo_C/build/
+
+# 忽略StuInfo_Cpp的生成文件
+/stuinfo_cpp/build/
