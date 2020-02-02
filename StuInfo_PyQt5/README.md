@@ -1,4 +1,4 @@
-# StuInfo_PyQt5
+# stuinfo_pyqt5
 
 一个用pyqt5写的学生信息管理系统，能够访问本地MySQL数据库
 
