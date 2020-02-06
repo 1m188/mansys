@@ -1,11 +1,11 @@
 #include "stdio.h"
 #include "stdbool.h"
 #include "utility.h"
-#include "menu/start.h"
-#include "menu/addnew.h"
-#include "menu/deleteone.h"
-#include "menu/changeone.h"
-#include "menu/searchone.h"
+#include "start_menu.h"
+#include "addnew_menu.h"
+#include "deleteone_menu.h"
+#include "changeone_menu.h"
+#include "searchone_menu.h"
 
 int main(int argc, char *argv[])
 {

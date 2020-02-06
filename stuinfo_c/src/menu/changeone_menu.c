@@ -1,9 +1,9 @@
-#include "changeone.h"
+#include "changeone_menu.h"
 #include "stdint.h"
 #include "string.h"
-#include "../utility.h"
-#include "deleteone.h"
-#include "addnew.h"
+#include "utility.h"
+#include "deleteone_menu.h"
+#include "addnew_menu.h"
 
 void changeoneMenu()
 {

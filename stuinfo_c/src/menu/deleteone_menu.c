@@ -1,11 +1,11 @@
-#include "addnew.h"
+#include "deleteone_menu.h"
 #include "stdio.h"
-#include "stdbool.h"
 #include "stdint.h"
+#include "stdbool.h"
 #include "string.h"
-#include "../utility.h"
+#include "utility.h"
 
-void addnewMenu()
+void deleteoneMenu()
 {
     int64_t size = getConsoleSize();
     int32_t height = size, width = (size >> 32);
@@ -38,19 +38,42 @@ void addnewMenu()
 
     displayCursor(false);
 
-    // 写入数据文件
-    addnew(info);
+    // 从数据文件中删除信息
+    deleteone(info);
 
     // 给出结束信息
-    printSthAtSwh(true, width / 2 - 27, height / 2 - 7, "information get! press any key to come back start menu...");
+    printSthAtSwh(true, width / 2 - 27, height / 2 - 7, "information deleted! press any key to come back start menu...");
 
     getKey(NULL, 0);
     system("cls");
 }
 
-void addnew(const char *info)
+void deleteone(const char *info)
 {
-    FILE *f = fopen(fileName, "a"); // 追加信息
-    fprintf(f, info);
+    // 新建一个新的文件，从原来的文件里不断地读数据写到新文件，如果
+    // 有相同的数据的话则不写到新文件中，最后把原来的文件删除并重命
+    // 名新的文件
+    FILE *f = fopen(fileName, "r");
+    FILE *tempF = fopen("temp", "w");
+    char stuInfo[40];
+    memset(stuInfo, '\0', 40);
+    int i = 0, ch;
+    while ((ch = fgetc(f)) != EOF)
+    {
+        stuInfo[i] = ch;
+        i++;
+        if (ch == '\n')
+        {
+            if (strcmp(stuInfo, info))
+            {
+                fprintf(tempF, stuInfo);
+            }
+            memset(stuInfo, '\0', 40);
+            i = 0;
+        }
+    }
     fclose(f);
+    fclose(tempF);
+    remove(fileName);
+    rename("temp", fileName);
 }

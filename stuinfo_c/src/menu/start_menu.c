@@ -1,7 +1,7 @@
-#include "start.h"
+#include "start_menu.h"
 #include "stdbool.h"
 #include "stdint.h"
-#include "../utility.h"
+#include "utility.h"
 
 int startMenu()
 {

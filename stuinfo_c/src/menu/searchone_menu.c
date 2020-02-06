@@ -1,10 +1,10 @@
-#include "searchone.h"
+#include "searchone_menu.h"
 #include "stdio.h"
 #include "stdint.h"
 #include "stdbool.h"
 #include "string.h"
 #include "malloc.h"
-#include "../utility.h"
+#include "utility.h"
 
 void searchoneMenu()
 {
