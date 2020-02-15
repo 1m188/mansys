@@ -1,4 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
+
+if(NOT WIN32)
+    message(FATAL_ERROR "This project can only run on windows!")
+endif()
+
 project(stuinfo_c LANGUAGES C)
 
 add_subdirectory(lib/sqlite_3310100)
