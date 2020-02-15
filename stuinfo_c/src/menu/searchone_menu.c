@@ -39,7 +39,6 @@ void searchoneMenu()
         }
     }
     free(result);
-    printSthAtSwh(false, x, y + offsetY, "Press any key to continue...");
 
     getKey(NULL, 0);
     system("cls");
