@@ -57,19 +57,19 @@ const char *searchone(const char *info)
     memset(stuInfo, '\0', 100);
     memset(cmpInfo, '\0', 100);
     int i = 0, j = 0, ch;
-    bool flag = false;
+    bool flag = false, isAll = !strcmp(info, "all");
     while ((ch = fgetc(f)) != EOF)
     {
         stuInfo[i] = ch;
         i++;
-        if (ch != ' ' && ch != '\n' && !flag)
+        if (ch != ' ' && ch != '\n' && !flag && !isAll)
         {
             cmpInfo[j] = ch;
             j++;
         }
         else
         {
-            if (!flag)
+            if (!flag && !isAll)
             {
                 if (!strcmp(cmpInfo, info))
                 {
@@ -81,7 +81,7 @@ const char *searchone(const char *info)
 
             if (ch == '\n')
             {
-                if (flag)
+                if (flag || isAll)
                 {
                     len += strlen(stuInfo);
                     result = (char *)realloc(result, len);
