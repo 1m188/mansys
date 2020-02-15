@@ -55,8 +55,8 @@ void deleteone(const char *info)
     // 名新的文件
     FILE *f = fopen(fileName, "r");
     FILE *tempF = fopen("temp", "w");
-    char stuInfo[40];
-    memset(stuInfo, '\0', 40);
+    char stuInfo[100];
+    memset(stuInfo, '\0', 100);
     int i = 0, ch;
     while ((ch = fgetc(f)) != EOF)
     {
@@ -68,7 +68,7 @@ void deleteone(const char *info)
             {
                 fprintf(tempF, stuInfo);
             }
-            memset(stuInfo, '\0', 40);
+            memset(stuInfo, '\0', 100);
             i = 0;
         }
     }

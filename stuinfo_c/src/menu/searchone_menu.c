@@ -15,8 +15,8 @@ void searchoneMenu()
 
     // 获取要查找的学生的信息
     printSthAtSwh(false, width / 2 - 34, height / 2 - 7, "Please enter the student's name or number or profession or class:");
-    char info[20];
-    memset(info, '\0', 20);
+    char info[100];
+    memset(info, '\0', 100);
     scanf("%s", info);
 
     displayCursor(false);
@@ -53,9 +53,9 @@ const char *searchone(const char *info)
     int len = 1;
     char *result = (char *)malloc(len);
     memset(result, '\0', len);
-    char stuInfo[40], cmpInfo[20];
-    memset(stuInfo, '\0', 40);
-    memset(cmpInfo, '\0', 20);
+    char stuInfo[100], cmpInfo[100];
+    memset(stuInfo, '\0', 100);
+    memset(cmpInfo, '\0', 100);
     int i = 0, j = 0, ch;
     bool flag = false;
     while ((ch = fgetc(f)) != EOF)
@@ -75,7 +75,7 @@ const char *searchone(const char *info)
                 {
                     flag = true;
                 }
-                memset(cmpInfo, '\0', 20);
+                memset(cmpInfo, '\0', 100);
                 j = 0;
             }
 
@@ -88,7 +88,7 @@ const char *searchone(const char *info)
                     strcat(result, stuInfo);
                     flag = false;
                 }
-                memset(stuInfo, '\0', 40);
+                memset(stuInfo, '\0', 100);
                 i = 0;
             }
         }
