@@ -11,3 +11,10 @@
 
 # 忽略StuInfo_Cpp的生成文件
 /stuinfo_cpp/build/
+
+
+# 忽略所有pyc文件
+*.pyc
+
+# 忽略python虚拟环境
+env/
