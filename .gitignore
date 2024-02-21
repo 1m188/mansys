@@ -18,3 +18,7 @@
 
 # 忽略python虚拟环境
 env/
+
+# 忽略所有打包文件
+build/
+dist/
