@@ -5,9 +5,12 @@
 from PyQt5.QtWidgets import QDialog, QLabel, QPushButton, QApplication
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
+from .baseGui import add_icon
 
 
 class HelpGui(QDialog):
+
+    @add_icon
     def __init__(self):
         super().__init__()
 

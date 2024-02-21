@@ -5,13 +5,14 @@
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QLineEdit, QPushButton, QGridLayout, QMessageBox
 from PyQt5.QtCore import pyqtSignal, Qt, QRegExp
 from PyQt5.QtGui import QFont, QRegExpValidator
-from Gui.baseGui import BaseGui
+from Gui.baseGui import BaseGui, add_icon
 
 
 class EnterGui(QWidget, BaseGui):
     enterSignal = pyqtSignal(str)  # 导入请求
     closeSignal = pyqtSignal()  # 关闭信号
 
+    @add_icon
     def __init__(self):
         super().__init__()
 

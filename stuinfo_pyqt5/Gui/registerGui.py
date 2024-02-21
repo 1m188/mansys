@@ -5,12 +5,13 @@
 from PyQt5.QtWidgets import QDialog, QApplication, QLabel, QLineEdit, QPushButton, QMessageBox
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QFont
-from Gui.baseGui import BaseGui
+from Gui.baseGui import BaseGui, add_icon
 
 
 class RegisterGui(QDialog, BaseGui):
     registerSignal = pyqtSignal(str)  # 注册请求
 
+    @add_icon
     def __init__(self):
         super().__init__()
 

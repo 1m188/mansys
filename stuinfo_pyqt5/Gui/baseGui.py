@@ -5,6 +5,8 @@
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QMessageBox
 from msg import Msg
+from PyQt5 import QtGui
+from pathlib import Path
 
 
 class BaseGui:
@@ -17,3 +19,18 @@ class BaseGui:
         else:
             # 否则继续发送（如果和其他的界面有联系的话）
             self.msgSignal.emit(msg)
+
+
+def add_icon(func):
+    '''
+    为界面添加icon的装饰器
+
+    给__init__构造函数加上即可
+    '''
+
+    def wrapper(self, *args, **kwargs):
+        func(self, *args, **kwargs)
+        p = str(Path(__file__).resolve().parent / 'icon.png')
+        self.setWindowIcon(QtGui.QIcon(p))
+
+    return wrapper

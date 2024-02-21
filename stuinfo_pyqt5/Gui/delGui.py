@@ -5,13 +5,14 @@
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QLineEdit, QPushButton, QGridLayout, QMessageBox
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QFont
-from Gui.baseGui import BaseGui
+from Gui.baseGui import BaseGui, add_icon
 
 
 class DelGui(QWidget, BaseGui):
     delSignal = pyqtSignal(str)  # 删除请求
     closeSignal = pyqtSignal()  # 界面关闭信号
 
+    @add_icon
     def __init__(self):
         super().__init__()
 

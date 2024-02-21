@@ -8,7 +8,7 @@ from PyQt5.QtGui import QFont
 from Gui.helpGui import HelpGui
 from Gui.enterGui import EnterGui
 from Gui.delGui import DelGui
-from Gui.baseGui import BaseGui
+from Gui.baseGui import BaseGui, add_icon
 
 
 class MainGui(QWidget, BaseGui):
@@ -16,6 +16,7 @@ class MainGui(QWidget, BaseGui):
     enterSignal = pyqtSignal(str)  # 导入请求
     delSignal = pyqtSignal(str)  # 删除请求
 
+    @add_icon
     def __init__(self):
         super().__init__()
 
