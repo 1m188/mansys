@@ -3,13 +3,14 @@
 '''
 
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
-import pymysql
+import sqlite3
 from Gui.loginGui import LoginGui
 from Gui.registerGui import RegisterGui
 from Gui.mainGui import MainGui
 from Gui.enterGui import EnterGui
 from Gui.delGui import DelGui
 from msg import Msg
+from pathlib import Path
 
 
 class Data(QObject):
@@ -30,8 +31,28 @@ class Data(QObject):
 
     def init(self):
         # 数据库操作
-        self.connection = pymysql.connect(host="localhost", port=3306, user="root", password="123456", db="stuinfosystem", charset="utf8", cursorclass=pymysql.cursors.DictCursor)
-        self.cursor = self.connection.cursor()
+
+        p = Path(__file__).resolve().parent / 'stuinfosystem.db'
+
+        if p.exists():
+            self.connection = sqlite3.connect(str(p))
+            self.cursor = self.connection.cursor()
+
+        else:  # 没有数据库文件则创建之后首先建表
+            self.connection = sqlite3.connect(str(p))
+            self.cursor = self.connection.cursor()
+
+            self.cursor.execute('''create table acount
+                                (username        char(100) not null,
+                                password        char(100) not null);''')
+            self.cursor.execute(
+                '''create table stuinfo
+                                (name            char(10) not null,
+                                age             char(10) not null,
+                                num             char(20) not null,
+                                profession      char(50) not null);'''
+            )
+            self.connection.commit()
 
     # 添加与各个界面的信号交互
     def addClass(self, cl):
@@ -56,7 +77,7 @@ class Data(QObject):
         # 如果能够查询到这个用户的话
         if result:
             # 如果密码对的话，则登陆
-            if result["password"] == acountInfo.split(' ')[1]:
+            if result[1] == acountInfo.split(' ')[1]:
                 self.loginSignal.emit()
             else:
                 self.msgSignal.emit(Msg(LoginGui, "错误", "密码错误！"))

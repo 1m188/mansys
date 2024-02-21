@@ -124,10 +124,10 @@ class MainGui(QWidget, BaseGui):
     def queryResultSlot(self, result):
         self.stuInfoList.setRowCount(len(result))
         for i in range(len(result)):
-            self.stuInfoList.setItem(i, 0, QTableWidgetItem(str(result[i]["name"])))
-            self.stuInfoList.setItem(i, 1, QTableWidgetItem(str(result[i]["age"])))
-            self.stuInfoList.setItem(i, 2, QTableWidgetItem(str(result[i]["num"])))
-            self.stuInfoList.setItem(i, 3, QTableWidgetItem(str(result[i]["profession"])))
+            self.stuInfoList.setItem(i, 0, QTableWidgetItem(str(result[i][0])))
+            self.stuInfoList.setItem(i, 1, QTableWidgetItem(str(result[i][1])))
+            self.stuInfoList.setItem(i, 2, QTableWidgetItem(str(result[i][2])))
+            self.stuInfoList.setItem(i, 3, QTableWidgetItem(str(result[i][3])))
 
     # 导入信息界面
     def enterActionTriggered(self):
