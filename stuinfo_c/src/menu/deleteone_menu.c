@@ -2,8 +2,8 @@
 #include "stdio.h"
 #include "stdint.h"
 #include "stdbool.h"
-#include "string.h"
 #include "utility.h"
+#include "db.h"
 
 void deleteoneMenu()
 {
@@ -12,68 +12,32 @@ void deleteoneMenu()
 
     displayCursor(true);
 
-    // 整体信息
-    char info[100];
-    memset(info, '\0', 100);
+    char name[64] = "", num[64] = "", profession[64] = "", class[64] = "";
 
     // 姓名
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 7, "Please enter the new student's name:");
-    scanf("%s", info);
-    info[strlen(info)] = ' ';
+    printSthAtSwh(false, width / 2 - 18, height / 2 - 7, "请输入要删除学生的姓名：");
+    scanf("%63s", name);
 
     // 学号
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 5, "Please enter the new student's number:");
-    scanf("%s", info + strlen(info));
-    info[strlen(info)] = ' ';
+    printSthAtSwh(false, width / 2 - 18, height / 2 - 5, "请输入要删除学生的学号：");
+    scanf("%63s", num);
 
     // 专业
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 3, "Please enter the new student's profession:");
-    scanf("%s", info + strlen(info));
-    info[strlen(info)] = ' ';
+    printSthAtSwh(false, width / 2 - 18, height / 2 - 3, "请输入要删除学生的专业：");
+    scanf("%63s", profession);
 
     // 班级
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 1, "Please enter the new student's class:");
-    scanf("%s", info + strlen(info));
-    info[strlen(info)] = '\n';
+    printSthAtSwh(false, width / 2 - 18, height / 2 - 1, "请输入要删除学生的班级：");
+    scanf("%63s", class);
 
     displayCursor(false);
 
-    // 从数据文件中删除信息
-    deleteone(info);
+    // 从数据库中删除信息
+    dbDelete(name, num, profession, class);
 
     // 给出结束信息
-    printSthAtSwh(true, width / 2 - 27, height / 2 - 7, "information deleted! press any key to come back start menu...");
+    printSthAtSwh(true, width / 2 - 22, height / 2 - 7, "信息删除成功！按任意键返回主菜单...");
 
     getKey(NULL, 0);
-    system("cls");
-}
-
-void deleteone(const char *info)
-{
-    // 新建一个新的文件，从原来的文件里不断地读数据写到新文件，如果
-    // 有相同的数据的话则不写到新文件中，最后把原来的文件删除并重命
-    // 名新的文件
-    FILE *f = fopen(fileName, "r");
-    FILE *tempF = fopen("temp", "w");
-    char stuInfo[100];
-    memset(stuInfo, '\0', 100);
-    int i = 0, ch;
-    while ((ch = fgetc(f)) != EOF)
-    {
-        stuInfo[i] = ch;
-        i++;
-        if (ch == '\n')
-        {
-            if (strcmp(stuInfo, info))
-            {
-                fprintf(tempF, stuInfo);
-            }
-            memset(stuInfo, '\0', 100);
-            i = 0;
-        }
-    }
-    fclose(f);
-    fclose(tempF);
-    remove(fileName);
-    rename("temp", fileName);
+    clearScreen();
 }

@@ -1,9 +1,8 @@
 #include "changeone_menu.h"
+#include "stdio.h"
 #include "stdint.h"
-#include "string.h"
 #include "utility.h"
-#include "deleteone_menu.h"
-#include "addnew_menu.h"
+#include "db.h"
 
 void changeoneMenu()
 {
@@ -13,70 +12,53 @@ void changeoneMenu()
     displayCursor(true);
 
     // 源信息
-    char sourceInfo[100];
-    memset(sourceInfo, '\0', 100);
+    char srcName[64] = "", srcNum[64] = "", srcProfession[64] = "", srcClass[64] = "";
 
     // 姓名
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 7, "Please enter the student's origin name:");
-    scanf("%s", sourceInfo);
-    sourceInfo[strlen(sourceInfo)] = ' ';
+    printSthAtSwh(false, width / 2 - 19, height / 2 - 7, "请输入该学生原来的姓名：");
+    scanf("%63s", srcName);
 
     // 学号
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 5, "Please enter the student's origin number:");
-    scanf("%s", sourceInfo + strlen(sourceInfo));
-    sourceInfo[strlen(sourceInfo)] = ' ';
+    printSthAtSwh(false, width / 2 - 19, height / 2 - 5, "请输入该学生原来的学号：");
+    scanf("%63s", srcNum);
 
     // 专业
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 3, "Please enter the student's origin profession:");
-    scanf("%s", sourceInfo + strlen(sourceInfo));
-    sourceInfo[strlen(sourceInfo)] = ' ';
+    printSthAtSwh(false, width / 2 - 19, height / 2 - 3, "请输入该学生原来的专业：");
+    scanf("%63s", srcProfession);
 
     // 班级
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 1, "Please enter the student's origin class:");
-    scanf("%s", sourceInfo + strlen(sourceInfo));
-    sourceInfo[strlen(sourceInfo)] = '\n';
+    printSthAtSwh(false, width / 2 - 19, height / 2 - 1, "请输入该学生原来的班级：");
+    scanf("%63s", srcClass);
 
-    system("cls");
+    clearScreen();
 
     // 目标信息
-    char dstInfo[100];
-    memset(dstInfo, '\0', 100);
+    char dstName[64] = "", dstNum[64] = "", dstProfession[64] = "", dstClass[64] = "";
 
     // 姓名
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 7, "Please enter the student's new name:");
-    scanf("%s", dstInfo);
-    dstInfo[strlen(dstInfo)] = ' ';
+    printSthAtSwh(false, width / 2 - 19, height / 2 - 7, "请输入修改后的姓名：");
+    scanf("%63s", dstName);
 
     // 学号
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 5, "Please enter the student's new number:");
-    scanf("%s", dstInfo + strlen(dstInfo));
-    dstInfo[strlen(dstInfo)] = ' ';
+    printSthAtSwh(false, width / 2 - 19, height / 2 - 5, "请输入修改后的学号：");
+    scanf("%63s", dstNum);
 
     // 专业
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 3, "Please enter the student's new profession:");
-    scanf("%s", dstInfo + strlen(dstInfo));
-    dstInfo[strlen(dstInfo)] = ' ';
+    printSthAtSwh(false, width / 2 - 19, height / 2 - 3, "请输入修改后的专业：");
+    scanf("%63s", dstProfession);
 
     // 班级
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 1, "Please enter the student's new class:");
-    scanf("%s", dstInfo + strlen(dstInfo));
-    dstInfo[strlen(dstInfo)] = '\n';
+    printSthAtSwh(false, width / 2 - 19, height / 2 - 1, "请输入修改后的班级：");
+    scanf("%63s", dstClass);
 
     displayCursor(false);
 
     // 修改
-    changeone(sourceInfo, dstInfo);
+    dbChange(srcName, srcNum, srcProfession, srcClass, dstName, dstNum, dstProfession, dstClass);
 
     // 给出结束信息
-    printSthAtSwh(true, width / 2 - 27, height / 2 - 7, "information changed! press any key to come back start menu...");
+    printSthAtSwh(true, width / 2 - 22, height / 2 - 7, "信息修改成功！按任意键返回主菜单...");
 
     getKey(NULL, 0);
-    system("cls");
-}
-
-void changeone(const char *src, const char *dst)
-{
-    // 删除掉原来的，将修改过后的信息作为新的添加进去
-    deleteone(src);
-    addnew(dst);
+    clearScreen();
 }

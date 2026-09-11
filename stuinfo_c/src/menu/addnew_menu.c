@@ -2,8 +2,8 @@
 #include "stdio.h"
 #include "stdbool.h"
 #include "stdint.h"
-#include "string.h"
 #include "utility.h"
+#include "db.h"
 
 void addnewMenu()
 {
@@ -12,45 +12,32 @@ void addnewMenu()
 
     displayCursor(true);
 
-    // 整体信息
-    char info[100];
-    memset(info, '\0', 100);
+    char name[64] = "", num[64] = "", profession[64] = "", class[64] = "";
 
     // 姓名
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 7, "Please enter the new student's name:");
-    scanf("%s", info);
-    info[strlen(info)] = ' ';
+    printSthAtSwh(false, width / 2 - 15, height / 2 - 7, "请输入新学生的姓名：");
+    scanf("%63s", name);
 
     // 学号
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 5, "Please enter the new student's number:");
-    scanf("%s", info + strlen(info));
-    info[strlen(info)] = ' ';
+    printSthAtSwh(false, width / 2 - 15, height / 2 - 5, "请输入新学生的学号：");
+    scanf("%63s", num);
 
     // 专业
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 3, "Please enter the new student's profession:");
-    scanf("%s", info + strlen(info));
-    info[strlen(info)] = ' ';
+    printSthAtSwh(false, width / 2 - 15, height / 2 - 3, "请输入新学生的专业：");
+    scanf("%63s", profession);
 
     // 班级
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 1, "Please enter the new student's class:");
-    scanf("%s", info + strlen(info));
-    info[strlen(info)] = '\n';
+    printSthAtSwh(false, width / 2 - 15, height / 2 - 1, "请输入新学生的班级：");
+    scanf("%63s", class);
 
     displayCursor(false);
 
-    // 写入数据文件
-    addnew(info);
+    // 写入数据库
+    dbAdd(name, num, profession, class);
 
     // 给出结束信息
-    printSthAtSwh(true, width / 2 - 27, height / 2 - 7, "information get! press any key to come back start menu...");
+    printSthAtSwh(true, width / 2 - 22, height / 2 - 7, "信息添加成功！按任意键返回主菜单...");
 
     getKey(NULL, 0);
-    system("cls");
-}
-
-void addnew(const char *info)
-{
-    FILE *f = fopen(fileName, "a"); // 追加信息
-    fprintf(f, info);
-    fclose(f);
+    clearScreen();
 }

@@ -2,9 +2,14 @@
 #include "stdio.h"
 #include "stdint.h"
 #include "stdbool.h"
-#include "string.h"
-#include "malloc.h"
 #include "utility.h"
+#include "db.h"
+
+// 打印一条查询结果
+static void printStuInfo(const char *name, const char *num, const char *profession, const char *class)
+{
+    printf("%s\t%s\t%s\t%s\n", name, num, profession, class);
+}
 
 void searchoneMenu()
 {
@@ -14,84 +19,22 @@ void searchoneMenu()
     displayCursor(true);
 
     // 获取要查找的学生的信息
-    printSthAtSwh(false, width / 2 - 34, height / 2 - 7, "Please enter the student's name or number or profession or class:");
-    char info[100];
-    memset(info, '\0', 100);
-    scanf("%s", info);
+    printSthAtSwh(false, width / 2 - 30, height / 2 - 7, "请输入要查找学生的姓名或学号或专业或班级（输入all查询全部）：");
+    char info[100] = "";
+    scanf("%99s", info);
 
     displayCursor(false);
 
     // 输出结果信息
-    printSthAtSwh(false, width / 2 - 21, height / 2 - 5, "The search result:");
-    char *result = (char *)searchone(info);
-    int i;
-    int x = width / 2 - 21, y = height / 2 - 5;
-    int offsetY = 2, offset = 0;
-    int len = strlen(result);
-    for (i = 0; i < len; i++)
+    printSthAtSwh(false, width / 2 - 16, height / 2 - 5, "查询结果（姓名/学号/专业/班级）：");
+    setCursorPos(width / 2 - 16, height / 2 - 4);
+    int count = dbSearch(info, printStuInfo);
+    fflush(stdout);
+    if (count == 0)
     {
-        if (result[i] == '\n')
-        {
-            result[i] = '\0';
-            printSthAtSwh(false, x, y + offsetY, result + offset);
-            offsetY += 2;
-            offset = i + 1;
-        }
+        printSthAtSwh(false, width / 2 - 16, height / 2 - 3, "没有找到匹配的学生信息！");
     }
-    free(result);
 
     getKey(NULL, 0);
-    system("cls");
-}
-
-const char *searchone(const char *info)
-{
-    // 这里读入每一条信息，如果其中有任一部分信息吻合则保留整条信息，
-    // 否则转入下一条信息处理
-    FILE *f = fopen(fileName, "r");
-    int len = 1;
-    char *result = (char *)malloc(len);
-    memset(result, '\0', len);
-    char stuInfo[100], cmpInfo[100];
-    memset(stuInfo, '\0', 100);
-    memset(cmpInfo, '\0', 100);
-    int i = 0, j = 0, ch;
-    bool flag = false, isAll = !strcmp(info, "all");
-    while ((ch = fgetc(f)) != EOF)
-    {
-        stuInfo[i] = ch;
-        i++;
-        if (ch != ' ' && ch != '\n' && !flag && !isAll)
-        {
-            cmpInfo[j] = ch;
-            j++;
-        }
-        else
-        {
-            if (!flag && !isAll)
-            {
-                if (!strcmp(cmpInfo, info))
-                {
-                    flag = true;
-                }
-                memset(cmpInfo, '\0', 100);
-                j = 0;
-            }
-
-            if (ch == '\n')
-            {
-                if (flag || isAll)
-                {
-                    len += strlen(stuInfo);
-                    result = (char *)realloc(result, len);
-                    strcat(result, stuInfo);
-                    flag = false;
-                }
-                memset(stuInfo, '\0', 100);
-                i = 0;
-            }
-        }
-    }
-    fclose(f);
-    return result;
+    clearScreen();
 }
